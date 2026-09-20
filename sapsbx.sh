@@ -1,5 +1,4 @@
 #!/bin/bash
-exec > "$HOME/sap.log" 2>&1
 export LANG=en_US.UTF-8
 if ! command -v cf8 >/dev/null 2>&1; then
 if command -v apk >/dev/null 2>&1; then
@@ -40,11 +39,11 @@ if command -v apt >/dev/null 2>&1; then
    apt-get update -y >/dev/null 2>&1 && apt-get install -y cron >/dev/null 2>&1
 fi
 fi
+
 echo "*************************************"
 echo "中国时间 $(date): SAP开始执行任务"
 echo "运行cat $HOME/sap.log查看最近一次定时执行日志"
 echo "*************************************"
-
 # 设置区=====================================================================
 
 # 必填！每个账号邮箱空一格
@@ -59,7 +58,7 @@ REGIONS=""
 # 必填！每个账号对应UUID空一格
 UUIDS=""
 
-# 选填！每个账号对应名称空一格，不填则每个实例都自动生成，多个账号中有个别账号自动生成填no
+# 选填！每个账号对应的应用程序名称APP空一格，不填则每个实例都自动生成，多个账号中有个别账号自动生成填no
 APP_NAMES=""
 
 # 选填！当使用Argo固定/临时隧道时，此端口变量必填，每个账号对应端口空一格，不填则每个实例都不启用argo，多个账号中有个别账号不启用填no
@@ -72,7 +71,7 @@ AGNS=""
 AGKS=""
 
 # 8-9点保活时间间隔，单位：分钟
-crontime=3
+crontime=5
 
 # 设置区=====================================================================
 
@@ -99,15 +98,18 @@ read -ra AGKS <<< "$AGKS"
 jbpath=$(readlink -f "$0")
 crontab -l 2>/dev/null > /tmp/crontab.tmp
 sed -i "\|$jbpath|d" /tmp/crontab.tmp
-echo "10-59/${crontime} 8 * * * /bin/bash $jbpath" >> /tmp/crontab.tmp
+echo "10-59/${crontime} 8 * * * /bin/bash $jbpath > $HOME/sap.log 2>&1" >> /tmp/crontab.tmp
 crontab /tmp/crontab.tmp
 rm /tmp/crontab.tmp
 pushout() {
   if echo "$push_out" | grep -iq "insufficient"; then
-    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP资源被人抢光了，明早8:15-9:00再来吧，再见！！"
+    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP资源被人抢光了，明早8:10-9:00再来吧，再见！！"
+    return 1
+  elif echo "$push_out" | grep -q "mapped"; then
+    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，请更换应用程序APP名称：${APP_NAME}，再运行一次"
     return 1
   elif echo "$push_out" | grep -q "FAILED"; then
-    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP繁忙中！请自查参数设置是否有误，后台实例是否超配额"
+    echo "🔴第 $((i+1)) 个实例部署：${APP_NAME} 失败了，SAP繁忙中！请自查参数设置是否有误，空间是否被删除"
     return 1
   else
     echo "${APP_NAME} 完成"
@@ -127,11 +129,18 @@ sapcfevn() {
 }
 result() {
   ROUTE=$(cf app "$APP_NAME" | grep "routes:" | awk '{print $2}')
+  url="https://$ROUTE/$UUID"
+  if curl -s "$url" | grep -iq "requested"; then
+  echo "🔴 ${APP_NAME} SAP创建失败，SAP资源被人抢光了，明早8:10-9:00再来吧，再见！！"
+  return 1
+  else
   echo "🚀第 $((i+1)) 个实例部署成功"
   echo "🟢实例名称: $APP_NAME"
   echo "🟢服务器地区: $REGION"
   echo "🌐点击打开代理节点的链接网址🔗: https://$ROUTE/$UUID"
   echo
+  return 0
+  fi
 }
 for i in "${!CF_USERNAMES[@]}"; do
   set +e
@@ -148,8 +157,8 @@ for i in "${!CF_USERNAMES[@]}"; do
   [ "$AGN" = "no" ] && AGN=""
   [ "$AGK" = "no" ] && AGK=""
   case "$REGION" in
-    SG) CF_API="https://api.cf.ap21.hana.ondemand.com"; serv="sg-m-p" ;;
-    US) CF_API="https://api.cf.us10-001.hana.ondemand.com"; serv="us-a-p" ;;
+    SG) CF_API="https://api.cf.ap21.hana.ondemand.com"; serv="sg" ;;
+    US) CF_API="https://api.cf.us10-001.hana.ondemand.com"; serv="us" ;;
     AU-A) CF_API="https://api.cf.ap10.hana.ondemand.com"; serv="au-a" ;;
     BR-A) CF_API="https://api.cf.br10.hana.ondemand.com"; serv="br-a" ;;
     KR-A) CF_API="https://api.cf.ap12.hana.ondemand.com"; serv="us-a" ;;

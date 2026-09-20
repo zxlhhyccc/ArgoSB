@@ -60,8 +60,8 @@ quoted=$(printf '%s ' $input)
 sed -i "59s/^.*$/UUIDS=\"${quoted% }\"/" $HOME/sapsbx.sh
 
 echo
-echo "每个账号对应SAP应用名称空一格，回车则每个实例都自动生成，多个账号中有个别账号自动生成填no"
-read -p "选填！请输入SAP应用名称: " input
+echo "每个账号对应SAP应用程序名称APP空一格，回车则每个实例都自动生成，多个账号中有个别账号自动生成填no"
+read -p "选填！请输入SAP应用程序名称APP: " input
 if [ -z "$input" ]; then
 sed -i "62s/^.*$/APP_NAMES=\"\"/" $HOME/sapsbx.sh
 else
@@ -105,14 +105,14 @@ sed -i "71s/^.*$/AGKS=\"${quoted% }\"/" $HOME/sapsbx.sh
 fi
 fi
 echo
-read -p "选填！请输入8-9点的保活时间间隔（单位:分钟，回车默认3分钟间隔）: " input
+read -p "选填！请输入8:10-9:00点的保活时间间隔（单位:分钟，回车默认5分钟间隔）: " input
 if [ -z "$input" ]; then
-sed -i "74s/^.*$/crontime=3/" $HOME/sapsbx.sh
+sed -i "74s/^.*$/crontime=5/" $HOME/sapsbx.sh
 else
 sed -i "74s/^.*$/crontime=$input/" $HOME/sapsbx.sh
 fi
 echo "脚本安装设置完毕"
-echo "每天上午8:15-9:00之间脚本自动运行保活，可以再次进入脚本选择2测试执行一次" && sleep 3
+echo "每天上午8:10-9:00之间脚本自动运行保活，可以再次进入脚本选择2测试执行一次" && sleep 3
 command -v curl > /dev/null 2>&1 && bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/sap.sh) || bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosbx/main/sap.sh)
 else
 echo "下载文件失败，请检查当前服务器是否支持curl或wget，网络是否支持github"
@@ -121,7 +121,7 @@ fi
 unins(){
 echo "请稍等……"
 apt-get remove --purge -y cf8-cli >/dev/null 2>&1
-rm -rf /usr/local/bin/cf8 $HOME/sapsbx.sh $HOME/sap.log
+rm -rf /usr/local/bin/cf8 "$HOME"/{sapsbx.sh,sap.log,sap.sh}
 crontab -l 2>/dev/null > /tmp/crontab.tmp
 sed -i '/sapsbx/d' /tmp/crontab.tmp >/dev/null 2>&1
 crontab /tmp/crontab.tmp
@@ -172,12 +172,12 @@ echo "*****************************************************"
 echo "*****************************************************"
 cf_line=$(sed -n '50p' "$HOME/sapsbx.sh" 2>/dev/null)
 cf_value=$(echo "$cf_line" | sed -E 's/CF_USERNAMES="(.*)"/\1/' | xargs 2>/dev/null)
-[ -z "$cf_value" ] && echo "当前未设置SAP变量，选择1添加变量" || { echo "当前已设置过SAP变量，详情如下显示，可选择2执行一次"; sed -n '46,77p' "$HOME/sapsbx.sh" 2>/dev/null; }
+[ -z "$cf_value" ] && echo "当前未设置SAP变量，选择1添加变量" || { echo "当前已设置过SAP变量，详情如下显示，可选择2执行一次"; sed -n '47,76p' "$HOME/sapsbx.sh" 2>/dev/null; }
 echo "*****************************************************"
 echo " 1. 安装脚本并添加/重置变量" 
 echo " 2. 手动测试执行一次"
 echo " 3. 查看最近一次自动执行日志"
-echo " 4. 指定删除已创建的应用程序"
+echo " 4. 删除已创建的应用程序名称APP"
 echo " 5. 卸载脚本"   
 echo " 0. 退出"
 read -p "请输入数字【0-5】:" Input 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Argosbx一键SSH命令生成器</title>
+  <title>ArgoSBX一键SSH命令生成器-甬哥ygkkk</title>
   <style>
     :root {
       --bg:#0b1020;
@@ -46,9 +46,9 @@
       transition: background-color 0.3s, color 0.3s;
     }
     .wrap {
-      max-width: 1100px;
+      max-width: 1450px; 
       margin: 32px auto;
-      padding: 0 16px;
+      padding: 0 20px;
     }
     header {
       position: relative;
@@ -83,41 +83,45 @@
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto;
-      gap: 16px;
+      grid-template-rows: auto auto auto auto;
+      gap: 20px;
     }
-    @media (max-width: 980px) {
+    @media (max-width: 1100px) {
       .grid {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
+        grid-template-rows: auto auto auto auto auto;
       }
     }
     .protocol-port {
       grid-column: 1;
-      grid-row: 1 / 3;
+      grid-row: 1 / 4;
     }
     .outbound-warp {
       grid-column: 2;
       grid-row: 1;
     }
-    .argo-tunnel {
+    .subscription-links {
       grid-column: 2;
       grid-row: 2;
     }
+    .argo-tunnel {
+      grid-column: 2;
+      grid-row: 3;
+    }
     .shortcut-commands-card {
       grid-column: 1 / 3;
-      grid-row: 3;
+      grid-row: 4;
     }
     .out {
       grid-column: 1 / 3;
-      grid-row: 4;
+      grid-row: 5;
     }
     .card {
       background: rgba(255, 255, 255, .04);
       backdrop-filter: blur(6px);
       border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 16px;
+      padding: 20px;
       transition: background-color 0.3s, border-color 0.3s;
     }
     .light-mode .card {
@@ -138,7 +142,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 8px; /* 为每个协议项添加一些垂直间距 */
+      margin-bottom: 8px;
     }
     .protocol-item label {
       white-space: nowrap;
@@ -147,8 +151,8 @@
       gap: 10px;
     }
     .protocol-item input[type="text"] {
-      flex-grow: 1; /* 让输入框填充剩余空间 */
-      min-width: 100px; /* 确保在小屏幕下也有足够的宽度 */
+      flex-grow: 1;
+      min-width: 100px;
       padding: 10px 12px;
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -157,21 +161,19 @@
       outline: none;
       transition: background-color 0.3s, border-color 0.3s, color 0.3s;
     }
-    /* 新增的网格布局，用于完美对齐 */
     .protocol-grid {
       display: grid;
-      grid-template-columns: auto 1fr; /* 第一列自动宽度，第二列填充剩余空间 */
-      gap: 8px 12px; /* 行间距8px，列间距12px */
+      grid-template-columns: auto 1fr; 
+      gap: 10px 16px;
       align-items: center;
     }
     .protocol-grid .protocol-item {
-      margin: 0; /* 在网格布局中，移除protocol-item的外部间距 */
+      margin: 0; 
     }
-
     .row:not(.protocol-port .row) {
       display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 12px;
+      grid-template-columns: 240px 1fr; 
+      gap: 16px;
       align-items: center;
       margin: 8px 0;
     }
@@ -195,7 +197,7 @@
       outline: none;
       transition: background-color 0.3s, border-color 0.3s, color 0.3s;
     }
-    input[disabled] {
+    input[disabled], select[disabled] {
       opacity: .5;
     }
     .switch {
@@ -385,7 +387,7 @@
           </svg>
         </label>
       </div>
-      <h1>Argosbx小钢炮💣一键SSH命令生成器 V25.9.18</h1>
+      <h1>ArgoSBX小钢炮脚本💣一键SSH命令生成器 V26.7.16</h1>
       <p>
         甬哥Github项目：
         <a href="https://github.com/yonggekkk" target="_blank">github.com/yonggekkk</a><br>
@@ -393,6 +395,8 @@
         <a href="https://ygkkk.blogspot.com" target="_blank">ygkkk.blogspot.com</a><br>
         甬哥YouTube频道：
         <a href="https://www.youtube.com/@ygkkk" target="_blank">www.youtube.com/@ygkkk</a><br>
+        甬哥最新动态推特X：
+        <a href="https://x.com/ygkkkg" target="_blank">x.com/ygkkkg</a><br>
       </p>
     </header>
 
@@ -402,32 +406,36 @@
         <div class="protocol-group separator">
           <h3>Xray可选协议：</h3>
           <div class="protocol-grid">
-            <label><input type="checkbox" data-proto="vlpt"> Vless-Tcp-Reality-V <span class="pill">vlpt</span></label><input type="text" placeholder="留空则随机端口" data-port="vlpt">
-            <label><input type="checkbox" data-proto="xhpt"> Vless-Xhttp-Reality-V <span class="pill">xhpt</span></label><input type="text" placeholder="留空则随机端口" data-port="xhpt">
-            <label><input type="checkbox" data-proto="vxpt"> Vless-Xhttp-V <span class="pill">vxpt</span></label><input type="text" placeholder="留空则随机端口" data-port="vxpt">
+            <label><input type="checkbox" data-proto="vlpt"> Vless-tcp-reality-vision <span class="pill">vlpt</span></label><input type="text" placeholder="留空则随机端口" data-port="vlpt">
+            <label><input type="checkbox" data-proto="xhpt"> Vless-xhttp-reality-enc <span class="pill">xhpt</span></label><input type="text" placeholder="留空则随机端口" data-port="xhpt">
+            <label><input type="checkbox" data-proto="vxpt"> Vless-xhttp-enc <span class="pill">vxpt</span></label><input type="text" placeholder="留空则随机端口" data-port="vxpt">
+            <label><input type="checkbox" data-proto="vwpt"> Vless-ws-enc <span class="pill">vwpt</span></label><input type="text" placeholder="留空则随机端口（Argo固定隧道的URL端口相同）" data-port="vwpt">
+            <label><input type="checkbox" data-proto="xupt"> Vless-xhttp-tls-UDP <span class="pill">xupt</span></label><input type="text" placeholder="留空则随机端口" data-port="xupt">
+            <label><input type="checkbox" data-proto="xcpt"> Vless-xhttp-tls-TCP/UDP <span class="pill">xcpt</span></label><input type="text" placeholder="留空则随机端口，(443系端口+域名证书,UDP-CDN可用)" data-port="xcpt">
           </div>
         </div>
         <div class="protocol-group separator">
           <h3>Singbox可选协议：</h3>
           <div class="protocol-grid">
-            <label><input type="checkbox" data-proto="hypt"> Hysteria2 <span class="pill">hypt</span></label><input type="text" placeholder="留空则随机端口" data-port="hypt">
             <label><input type="checkbox" data-proto="tupt"> Tuic <span class="pill">tupt</span></label><input type="text" placeholder="留空则随机端口" data-port="tupt">
             <label><input type="checkbox" data-proto="anpt"> AnyTLS <span class="pill">anpt</span></label><input type="text" placeholder="留空则随机端口" data-port="anpt">
-            <label><input type="checkbox" data-proto="arpt"> Any-Reality <span class="pill">arpt</span></label><input type="text" placeholder="留空则随机端口" data-port="arpt">
+            <label><input type="checkbox" data-proto="nvpt" disabled> Naiveproxy <span class="pill">nvpt</span></label><input type="text" placeholder="启用域名IP证书TLS后可选，留空则随机端口" data-port="nvpt" disabled>
+            <label><input type="checkbox" data-proto="arpt"> Any-reality <span class="pill">arpt</span></label><input type="text" placeholder="留空则随机端口" data-port="arpt">
             <label><input type="checkbox" data-proto="sspt"> Shadowsocks-2022 <span class="pill">sspt</span></label><input type="text" placeholder="留空则随机端口" data-port="sspt">
           </div>
         </div>
         <div class="protocol-group separator">
-          <h3>Xray/Singbox自动分配协议：</h3>
+          <h3>自动(已选Xray则用Xray，否则Singbox)：</h3>
           <div class="protocol-grid">
+            <label><input type="checkbox" data-proto="hypt"> Hysteria2 <span class="pill">hypt</span></label><input type="text" placeholder="留空则随机端口" data-port="hypt">
+            <label><input type="checkbox" data-proto="vmpt"> Vmess-ws <span class="pill">vmpt</span></label><input type="text" placeholder="留空则随机端口（Argo固定隧道的URL端口相同）" data-port="vmpt">
             <label><input type="checkbox" data-proto="sopt"> Socks5 <span class="pill">sopt</span></label><input type="text" placeholder="留空则随机端口" data-port="sopt">
-            <label><input type="checkbox" data-proto="vmpt"> Vmess-ws <span class="pill">vmpt</span></label><input type="text" placeholder="留空则随机端口（Argo固定隧道需填写端口）" data-port="vmpt">
           </div>
         </div>
       </section>
 
       <section class="card outbound-warp">
-        <h2>相关配置参数： </h2>
+        <h2>相关全局配置调整： </h2>
         <div class="row">
           <label>UUID 密码 <span class="pill">uuid</span></label>
           <div class="input-with-button">
@@ -435,8 +443,16 @@
             <button id="generateUuidBtn" type="button" class="primary">生成 UUID</button>
           </div>
         </div>
-        <div class="row"><label>Reality 域名 <span class="pill">reym</span></label><input id="reym" type="text" placeholder="留空则默认apple.com"/></div>
-        <div class="row"><label>CF解析IP的域名<span class="pill">cdnym</span></label><input id="cdnym" type="text" placeholder="仅Vmess-ws或Vless-Xhttp-V套CDN时可用" disabled/></div>
+        <div class="row"><label>Reality 域名 <span class="pill">reym</span></label><input id="reym" type="text" placeholder="选择Reality相关协议后可用，留空默认apple.com" disabled/></div>
+        <div class="row"><label>CDN优选IP域名 <span class="pill">cfip</span></label><input id="cfip" type="text" placeholder="支持2个优选IP域名(空格间隔)，留空默认优选域名" disabled></div>
+        <div class="row"><label>启用域名IP证书TLS <span class="pill">alns</span></label>
+          <select id="alns">
+            <option value="">默认 关闭 (HY2/TUIC/Anytls/Xhttp-tls为自签证书TLS)</option>
+            <option value="y">开启 (HY2/TUIC/Naive/Anytls/Xhttp-tls为域名IP证书TLS)</option>
+          </select>
+        </div>
+        <div class="row"><label>Hysteria2端口跳跃 <span class="pill">hyjpt</span></label><input id="hyjpt" type="text" placeholder="支持多个范围端口与单端口混用(空格间隔)，例：123:456 789" disabled/></div>
+        <div class="row"><label>CF解析IP的域名<span class="pill">cdnym</span></label><input id="cdnym" type="text" placeholder="Vmess-ws、Vless-xhttp/ws-enc启用80、回源CDN时可用" disabled/></div>
         <div class="row"><label>套WARP-IP出站 <span class="pill">warp</span></label>
           <select id="warp">
             <option value="">默认 服务器本地IP出站</option>
@@ -465,32 +481,64 @@
             <option value="6">导出 IPv6</option>
           </select>
         </div>
+        <div class="row">
+          <label>当前系统开放所有端口 <span class="pill">oap</span></label>
+          <select id="oap">
+            <option value="">默认 关闭</option>
+            <option value="y">开启 执行一次即可关闭</option>
+          </select>
+        </div>
         <div class="row"><label>导出节点名称前缀 <span class="pill">name</span></label><input id="name" type="text" placeholder="留空则默认协议名前缀"/></div>
       </section>
 
-      <section class="card argo-tunnel">
-        <h2>Argo临时/固定隧道：</h2>
+      <section class="card subscription-links">
+        <h2>Clash/Mihomo、Singbox、聚合单节点的订阅链接设置：</h2>
         <div class="row">
-          <label>启用Argo <span class="pill">argo</span></label>
-          <div id="argoBtn" class="switch" role="switch" aria-checked="false"></div>
+          <label>启用订阅链接 <span class="pill">sub</span></label>
+          <select id="sub">
+            <option value="">默认 关闭 (仅显示单节点分享链接)</option>
+            <option value="y">开启</option>
+          </select>
         </div>
-        <div class="row"><label>固定隧道CF域名 <span class="pill">agn</span></label><input id="agn" type="text" placeholder="解析在CF的域名，留空则临时隧道" disabled></div>
-        <div class="row"><label>固定隧道Token <span class="pill">agk</span></label><input id="agk" type="text" placeholder="ey开头的秘钥，留空则临时隧道" disabled></div>
+        <div class="row">
+          <label>订阅链接密码 <span class="pill">subid</span></label>
+          <input id="subid" type="text" placeholder="留空则默认uuid路径密码" disabled/>
+        </div>
+        <div class="row">
+          <label>订阅链接端口 <span class="pill">subpt</span></label>
+          <input id="subpt" type="text" placeholder="留空则随机端口" disabled/>
+        </div>
+      </section>
+
+      <section class="card argo-tunnel">
+        <h2>Argo临时/固定隧道CDN：</h2>
+        <div class="row">
+          <label>启用Argo隧道开关 <span class="pill">argo</span></label>
+          <select id="argoSelect">
+            <option value="">默认 关闭</option>
+            <option value="vwpt">启用主协议Vless-ws-enc的Argo隧道 </option>
+            <option value="vmpt">启用主协议Vmess-ws的Argo隧道 </option>
+          </select>
+        </div>
+        <div class="row"><label>固定隧道CF域名 <span class="pill">agn</span></label><input id="agn" type="text" placeholder="Zero Trust已设置有子域名称的CF域名，留空则临时隧道" disabled></div>
+        <div class="row"><label>固定隧道Token <span class="pill">agk</span></label><input id="agk" type="text" placeholder="Zero Trust已提取ey开头的秘钥，留空则临时隧道" disabled></div>
       </section>
 
       <section class="card shortcut-commands-card">
-        <h2>如已安装脚本，可用以下四个的快捷方式：</h2>
+        <h2>如已安装脚本，可用以下快捷方式：</h2>
         <div class="shortcut-commands-content">
-          <button class="command-button" data-command="list">节点显示的命令：list</button>
-          <button class="command-button" data-command="del">卸载脚本的命令：del</button>
-          <button class="command-button" data-command="res">重启脚本的命令：res</button>
-          <button class="command-button" data-command="rep">更换、添加、删除变量的命令（注:变量设置完成后再点击）：rep</button>
+          <button class="command-button" data-command="list">节点显示命令：list</button>
+          <button class="command-button" data-command="del">卸载脚本命令：del</button>
+          <button class="command-button" data-command="upx">升级Xray内核：upx</button>
+          <button class="command-button" data-command="ups">升级Singbox内核：ups</button>
+          <button class="command-button" data-command="res">重启脚本命令：res</button>
+          <button class="command-button" data-command="rep">调整变量、更新脚本命令（注:所有变量设置完成后再点击）：rep</button>
         </div>
       </section>
 
       <section class="card out">
         <div class="tabs">
-          <h2>进入服务器的SSH界面，复制下方生成的一键脚本命令，回车一次搞定</h2>
+          <h2>复制下方命令到服务器SSH回车一次即可。建议保存该命令，后续可粘贴回这里直接修改配置。</h2>
         </div>
         <div class="command-type-row">
             <label>命令类型选择：</label>
@@ -502,39 +550,66 @@
           <button id="reset">重置</button>
           <button id="copy">复制</button>
         </div>
-        <p style="margin-top: 10px;">相关操作及视频教程说明，请参考Argosbx小钢炮脚本项目💣：<a href="https://github.com/yonggekkk/argosbx" target="_blank">github.com/yonggekkk/argosbx</a></p>
+        <p style="margin-top: 10px;">相关细节说明，请参考ArgoSBX小钢炮脚本项目💣：<a href="https://github.com/yonggekkk/argosbx" target="_blank">github.com/yonggekkk/argosbx</a></p>
+Acme-yg域名IP证书脚本：bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/acme-yg/main/acme.sh)</a></p>
+1、ArgoSBX一键SSH命令生成器发布，只要点几下，各大代理协议任你选：<a href="https://youtu.be/4u6W4c-t3oU" target="_blank">点击视频教程</a></p>
+2、ArgoSBX内置15种WARP出站组合，轻松替代独立的WARP脚本：<a href="https://youtu.be/iywjT8fIka4" target="_blank">点击视频教程</a></p>
+3、代理节点的IP、端口被封依旧可用！ArgoSBX脚本套CDN优选4大方案：<a href="https://youtu.be/RnUT1CNbCr8" target="_blank">点击视频教程</a></p>
+4、VPS+容器搭建最强CDN节点；独家解读Argo临时/固定隧道区别：<a href="https://youtu.be/K35NhrNiLK8" target="_blank">点击视频教程</a></p>
+5、ArgoSBX更新：VLESS抗量子加密；80端口开启TLS，无需域名CDN：<a href="https://youtu.be/X8BFVyeiY9g" target="_blank">点击视频教程</a></p>
+6、小白一分钟自建ArgoSBX翻墙VPN代理：支持IP订阅链接；HY2端口跳跃：<a href="https://youtu.be/xHzZFP_ywLs" target="_blank">点击视频教程</a></p>      
+        安卓手机客户端推荐：<a href="https://github.com/starifly/NekoBoxForAndroid/releases" target="_blank">Nekobox-starifly版 (全协议支持)</a>、<a href="https://github.com/2dust/v2rayNG/releases" target="_blank">V2rayNG官方版</a><br>
+        电脑win客户端推荐：<a href="https://github.com/2dust/v2rayN/releases" target="_blank">V2rayN官方版 (全协议支持)</a><br>
+        苹果IOS客户端推荐：小火箭Shadowrocket、Sing-box MT、Clash mi、Onexray
+      </p>
       </section>
     </div>
   </div>
 
 <script>
 (function(){
-  // Bash命令常量
   const CURL = 'bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)';
   const WGET = 'bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosbx/main/argosbx.sh)';
-  // 协议键名
-  const protoKeys = ['sopt','vmpt','vlpt','xhpt','vxpt','arpt','anpt','hypt','tupt','sspt'];
-  // 可选参数ID
-  const optIds = ['warp','ippz','uuid','reym','cdnym','name'];
+  const protoKeys = ['sopt','vmpt','vlpt','xhpt','vxpt','vwpt','xupt','xcpt','hypt','tupt','nvpt','anpt','arpt','sspt'];
+  const optIds = ['warp','ippz','uuid','reym','cfip','alns','hyjpt','cdnym','name', 'oap', 'sub', 'subid', 'subpt'];
 
-  // DOM元素引用
-  const argoSwitch = document.getElementById('argoBtn');
+  const argoSelect = document.getElementById('argoSelect');
   const agn = document.getElementById('agn');
   const agk = document.getElementById('agk');
+  const cfip = document.getElementById('cfip');
+  const sub = document.getElementById('sub');
+  const subid = document.getElementById('subid');
+  const subpt = document.getElementById('subpt');
+  
   const vmessWsCheckbox = document.querySelector('[data-proto="vmpt"]');
+  const vlessWsVCheckbox = document.querySelector('[data-proto="vwpt"]');
   const vlessXhttpCheckbox = document.querySelector('[data-proto="vxpt"]');
+  const vlessTcpRealityCheckbox = document.querySelector('[data-proto="vlpt"]');
+  const vlessXhttpRealityCheckbox = document.querySelector('[data-proto="xhpt"]');
+  const vlessXhttpTlsCheckbox = document.querySelector('[data-proto="xcpt"]');
+  const anyRealityCheckbox = document.querySelector('[data-proto="arpt"]');
+  const hy2Checkbox = document.querySelector('[data-proto="hypt"]');
+  const nvptCheckbox = document.querySelector('[data-proto="nvpt"]');
+  const nvptPortInput = document.querySelector('[data-port="nvpt"]');
+
+  const reymInput = document.getElementById('reym');
+  const alnsSelect = document.getElementById('alns');
+  const hyjptInput = document.getElementById('hyjpt');
   const cdnymInput = document.getElementById('cdnym');
+  
   const output = document.getElementById('output');
   const allInputs = document.querySelectorAll('input, select');
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const textInputs = document.querySelectorAll('input[type="text"]');
   const ippzSelect = document.getElementById('ippz');
+  const oapSelect = document.getElementById('oap');
   const generateUuidBtn = document.getElementById('generateUuidBtn');
   const uuidInput = document.getElementById('uuid');
   const themeSwitchCheckbox = document.getElementById('theme-switch-checkbox');
   const commandTypeRadios = document.querySelectorAll('input[name="commandType"]');
 
-  // 初始化主题
+  let isUpdatingFromOutput = false;
+
   function initTheme() {
     const isLightMode = localStorage.getItem('theme') === 'light';
     if (isLightMode) {
@@ -543,31 +618,33 @@
     }
   }
 
-  // 切换主题
   function toggleTheme() {
     document.body.classList.toggle('light-mode');
     const isLightMode = document.body.classList.contains('light-mode');
     localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
   }
 
-  // 为主题切换复选框添加事件监听器
   themeSwitchCheckbox.addEventListener('change', toggleTheme);
 
-  /**
-   * 更新Argo隧道开关的状态和相关输入框的禁用状态。
-   * @param {boolean} isEnabled - 是否启用Argo隧道。
-   */
-  function updateArgoState(isEnabled) {
-    argoSwitch.classList.toggle('on', isEnabled);
-    argoSwitch.setAttribute('aria-checked', isEnabled ? 'true' : 'false');
+  function updateArgoState(argoValue) {
+    const isEnabled = argoValue !== '';
+    if (!isEnabled) {
+      agn.value = '';
+      agk.value = '';
+    }
     [agn, agk].forEach(i => i.disabled = !isEnabled);
+  }
+
+  function updateSubState() {
+    const isEnabled = sub.value === 'y';
+    if (!isEnabled) {
+      subid.value = '';
+      subpt.value = '';
+    }
+    [subid, subpt].forEach(i => i.disabled = !isEnabled);
     render();
   }
 
-  /**
-   * 重置所有表单输入到默认状态。
-   * @param {boolean} preserveIppz - 是否保留ippz的值。
-   */
   function resetForm(preserveIppz = false) {
     checkboxes.forEach(cb => {
         cb.checked = false;
@@ -576,63 +653,87 @@
         inp.value = '';
     });
     document.getElementById('warp').value = '';
-    // 如果不保留ippz，则重置其值
     if (!preserveIppz) {
         ippzSelect.value = '';
     }
+    oapSelect.value = '';
     document.getElementById('uuid').value = '';
     document.getElementById('reym').value = '';
+    document.getElementById('cfip').value = '';
+    document.getElementById('alns').value = '';
+    document.getElementById('hyjpt').value = '';
     document.getElementById('name').value = '';
-    updateArgoState(false);
-    updateCdnymState();
+    sub.value = '';
+    updateSubState();
+    argoSelect.value = '';
+    updateArgoState('');
+    updateDynamicInputs();
   }
 
-  /**
-   * 根据Vmess-ws协议或VLESS-Xhttp协议的选择状态更新cdnym输入框的禁用状态。
-   */
-  function updateCdnymState() {
-      // 检查Vmess-ws或VLESS-Xhttp协议是否被选中
-      const isAnyProtocolChecked = vmessWsCheckbox.checked || vlessXhttpCheckbox.checked;
-      
-      // 如果任何一个协议被选中，则启用输入框，否则禁用它
-      cdnymInput.disabled = !isAnyProtocolChecked;
-      
-      // 如果两个协议都没有被选中，则清空输入框的值
-      if (!isAnyProtocolChecked) {
-          cdnymInput.value = '';
+  function updateDynamicInputs() {
+      const isCdnEnabled = vmessWsCheckbox.checked || vlessXhttpCheckbox.checked || vlessWsVCheckbox.checked;
+      cdnymInput.disabled = !isCdnEnabled;
+      if (!isCdnEnabled) cdnymInput.value = '';
+
+      const isRealityEnabled = vlessTcpRealityCheckbox.checked || vlessXhttpRealityCheckbox.checked || anyRealityCheckbox.checked;
+      reymInput.disabled = !isRealityEnabled;
+      if (!isRealityEnabled) reymInput.value = '';
+
+      const isAlnsEnabled = alnsSelect.value === 'y';
+      nvptCheckbox.disabled = !isAlnsEnabled;
+      nvptPortInput.disabled = !isAlnsEnabled;
+      if (!isAlnsEnabled) {
+          nvptCheckbox.checked = false;
+          nvptPortInput.value = '';
       }
+
+      const isHy2Enabled = hy2Checkbox.checked;
+      hyjptInput.disabled = !isHy2Enabled;
+      if (!isHy2Enabled) hyjptInput.value = '';
+
+      const isCfipEnabled = vlessXhttpTlsCheckbox.checked || vlessWsVCheckbox.checked || vlessXhttpCheckbox.checked || vmessWsCheckbox.checked;
+      cfip.disabled = !isCfipEnabled;
+      if (!isCfipEnabled) {
+          cfip.value = '';
+      }
+
       render();
   }
 
-  // --- 事件监听器 ---
+  sub.addEventListener('change', updateSubState);
+  alnsSelect.addEventListener('change', updateDynamicInputs);
 
-  // Argo开关事件监听
-  argoSwitch.addEventListener('click', () => {
-    const on = !argoSwitch.classList.contains('on');
-    if (on) {
-      vmessWsCheckbox.checked = true;
+  argoSelect.addEventListener('change', () => {
+    const argoValue = argoSelect.value;
+    const isEnabled = argoValue !== '';
+    [agn, agk].forEach(i => i.disabled = !isEnabled);
+    if (argoValue === 'vwpt') {
+        vlessWsVCheckbox.checked = true;
+    } else if (argoValue === 'vmpt') {
+        vmessWsCheckbox.checked = true;
+    } 
+    if (!isEnabled) {
+        agn.value = '';
+        agk.value = '';
     }
-    updateArgoState(on);
-    updateCdnymState();
-  });
-
-  // Vmess-ws复选框事件监听
-  vmessWsCheckbox.addEventListener('change', () => {
-    if (!vmessWsCheckbox.checked) {
-      updateArgoState(false);
-    }
-    updateCdnymState();
-    render();
-  });
-  
-  // VLESS-Xhttp复选框事件监听（新增）
-  vlessXhttpCheckbox.addEventListener('change', () => {
-    updateCdnymState();
+    updateDynamicInputs(); 
     render();
   });
 
+  [vmessWsCheckbox, vlessWsVCheckbox, vlessXhttpCheckbox, vlessTcpRealityCheckbox, vlessXhttpRealityCheckbox, vlessXhttpTlsCheckbox, anyRealityCheckbox, hy2Checkbox].forEach(ck => {
+    ck.addEventListener('change', () => {
+      if (!vlessWsVCheckbox.checked && argoSelect.value === 'vwpt') { 
+         argoSelect.value = '';
+         updateArgoState('');
+      }
+      if (!vmessWsCheckbox.checked && argoSelect.value === 'vmpt') { 
+         argoSelect.value = '';
+         updateArgoState('');
+      }
+      updateDynamicInputs();
+    });
+  });
 
-  // 端口输入框事件监听，如果输入了端口则自动选中对应协议
   document.querySelectorAll('[data-port]').forEach(inp => {
     inp.addEventListener('input', () => {
       const key = inp.getAttribute('data-port');
@@ -641,14 +742,13 @@
       if (inp.value.trim() !== '' && !ck.checked) {
         ck.checked = true;
       }
+      updateDynamicInputs();
       render();
     });
   });
 
-  // 协议复选框事件监听，用于触发渲染
   document.querySelectorAll('[data-proto]').forEach(ck => {
     ck.addEventListener('change', () => {
-      // 当取消勾选时，自动清空对应的端口输入框
       if (!ck.checked) {
         const key = ck.getAttribute('data-proto');
         const pt = document.querySelector(`[data-port="${key}"]`);
@@ -656,38 +756,20 @@
           pt.value = '';
         }
       }
-
-      // Vmess-ws 协议的特殊处理
-      if (ck.getAttribute('data-proto') === 'vmpt') {
-        if (!ck.checked) {
-          updateArgoState(false);
-        }
-      }
-      // 对于 Vmess-ws 和 VLESS-Xhttp，调用更新函数
-      if (ck.getAttribute('data-proto') === 'vmpt' || ck.getAttribute('data-proto') === 'vxpt') {
-          updateCdnymState();
-      }
+      updateDynamicInputs();
       render();
     });
   });
 
-  // UUID生成按钮事件监听
   generateUuidBtn.addEventListener('click', () => {
     uuidInput.value = crypto.randomUUID();
     render();
   });
 
-  // 命令类型单选框事件监听
   commandTypeRadios.forEach(radio => {
     radio.addEventListener('change', render);
   });
 
-  // --- 核心功能函数 ---
-
-  /**
-   * 收集所有表单变量。
-   * @returns {Object} 包含所有已选择或填写的变量的对象。
-   */
   function collectVars(){
     const m = {};
     protoKeys.forEach(k => {
@@ -705,28 +787,27 @@
         m[id] = v;
       }
     });
-    if (argoSwitch.classList.contains('on')) {
-      m['argo'] = 'y';
+    
+    const argoValue = argoSelect.value;
+    if (argoValue !== '') {
+      m['argo'] = argoValue; 
       const _agn = (agn.value || '').trim();
       const _agk = (agk.value || '').trim();
-      if (_agn) m['agn'] = _agn;
-      if (_agk) m['agk'] = _agk;
+      if (!agn.disabled && _agn) m['agn'] = _agn;
+      if (!agk.disabled && _agk) m['agk'] = _agk;
     }
     return m;
   }
 
-  /**
-   * 将变量对象转换为bash命令字符串。
-   * @param {Object} m - 包含变量的对象。
-   * @returns {string} 格式化后的bash变量字符串。
-   */
   function toBashVars(m){
     const keys = Object.keys(m);
     const ordered = [];
     protoKeys.forEach(k => { if (keys.includes(k)) ordered.push(k); });
-    ['warp', 'uuid', 'reym', 'cdnym', 'name', 'ippz'].forEach(k => { if (keys.includes(k)) ordered.push(k); });
+    ['warp', 'uuid', 'reym', 'cfip', 'alns', 'hyjpt', 'cdnym', 'name', 'ippz', 'sub', 'subid', 'subpt'].forEach(k => { if (keys.includes(k)) ordered.push(k); });
     if (keys.includes('argo')) ordered.push('argo');
-    ['agn', 'agk'].forEach(k => { if (keys.includes(k)) ordered.push(k); });
+    if (keys.includes('agn')) ordered.push('agn');
+    if (keys.includes('agk')) ordered.push('agk');
+    if (keys.includes('oap')) ordered.push('oap');
     keys.forEach(k => { if (!ordered.includes(k)) ordered.push(k); });
 
     return ordered.map(k => {
@@ -739,28 +820,107 @@
     }).join(' ');
   }
 
-  /**
-   * 渲染并更新输出文本区域。
-   */
   function render(){
+    if (isUpdatingFromOutput) return; 
     const m = collectVars();
     const vars = toBashVars(m);
     const selectedCommand = document.querySelector('input[name="commandType"]:checked').value === 'curl' ? CURL : WGET;
     output.value = (vars ? vars + ' ' : '') + selectedCommand;
   }
 
-  // 初始化渲染
+  function parseAndFillOutput() {
+    const text = output.value.trim();
+    if (!text) return;
+
+    isUpdatingFromOutput = true;
+
+    if (text.includes('wget')) {
+      document.querySelector('input[name="commandType"][value="wget"]').checked = true;
+    } else {
+      document.querySelector('input[name="commandType"][value="curl"]').checked = true;
+    }
+
+    const regex = /(\w+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"']+))/g;
+    const params = {};
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      const key = match[1];
+      const val = match[2] !== undefined ? match[2] : (match[3] !== undefined ? match[3] : match[4]);
+      params[key] = val;
+    }
+
+    protoKeys.forEach(k => {
+      const ck = document.querySelector(`[data-proto="${k}"]`);
+      const pt = document.querySelector(`[data-port="${k}"]`);
+      if (k in params) {
+        if (ck) ck.checked = true;
+        if (pt) pt.value = params[k];
+      } else {
+        if (ck) ck.checked = false;
+        if (pt) pt.value = '';
+      }
+    });
+
+    if ('sub' in params) {
+      sub.value = params['sub'];
+    } else {
+      sub.value = '';
+    }
+    [subid, subpt].forEach(i => i.disabled = (sub.value !== 'y'));
+
+    if ('alns' in params) {
+      alnsSelect.value = params['alns'];
+    } else {
+      alnsSelect.value = '';
+    }
+
+    if ('argo' in params) {
+      argoSelect.value = params['argo'];
+    } else {
+      argoSelect.value = '';
+    }
+    [agn, agk].forEach(i => i.disabled = (argoSelect.value === ''));
+
+    const isCdnEnabled = params['vmpt'] !== undefined || params['vxpt'] !== undefined || params['vwpt'] !== undefined;
+    cdnymInput.disabled = !isCdnEnabled;
+    const isRealityEnabled = params['vlpt'] !== undefined || params['xhpt'] !== undefined || params['arpt'] !== undefined;
+    reymInput.disabled = !isRealityEnabled;
+    hyjptInput.disabled = (params['hypt'] === undefined);
+
+    const isAlnsEnabled = alnsSelect.value === 'y';
+    nvptCheckbox.disabled = !isAlnsEnabled;
+    nvptPortInput.disabled = !isAlnsEnabled;
+
+    const isCfipEnabled = params['xcpt'] !== undefined || params['vwpt'] !== undefined || params['vxpt'] !== undefined || params['vmpt'] !== undefined;
+    cfip.disabled = !isCfipEnabled;
+
+    const allIds = [...optIds, 'agn', 'agk'];
+    allIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        if (id in params) {
+          el.value = params[id];
+        } else {
+          el.value = '';
+        }
+      }
+    });
+
+    isUpdatingFromOutput = false;
+  }
+
+  output.addEventListener('input', parseAndFillOutput);
+
   initTheme();
-  updateCdnymState();
+  updateDynamicInputs();
+  updateSubState();
   render();
 
-  // 为所有输入元素添加事件监听器，实时更新命令
   allInputs.forEach(el => {
     el.addEventListener('input', render);
     el.addEventListener('change', render);
   });
   
-  // 快捷命令按钮事件监听
   document.querySelectorAll('.command-button').forEach(btn => {
     btn.addEventListener('click', () => {
       const command = btn.getAttribute('data-command');
@@ -787,20 +947,18 @@
     });
   });
 
-  // 复制按钮事件监听
   document.getElementById('copy').addEventListener('click', async () => {
     const t = document.getElementById('output');
     t.select(); t.setSelectionRange(0, 99999);
     try { await navigator.clipboard.writeText(t.value); showToast('已复制到剪贴板'); } catch (e) { document.execCommand('copy'); showToast('已复制'); }
   });
 
-  // 重置按钮事件监听
-  document.getElementById('reset').addEventListener('click', () => { location.reload(); });
+  document.getElementById('reset').addEventListener('click', () => { 
+    resetForm(false); 
+    output.value = ''; 
+    showToast('已清空全部配置');
+  });
 
-  /**
-   * 显示一个短暂的提示消息。
-   * @param {string} msg - 要显示的文本消息。
-   */
   function showToast(msg) {
     const d = document.createElement('div');
     d.textContent = msg; d.style.position = 'fixed'; d.style.left = '50%'; d.style.top = '20px'; d.style.transform = 'translateX(-50%)';
@@ -811,4 +969,3 @@
 </script>
 </body>
 </html>
-
